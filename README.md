@@ -1,4 +1,4 @@
 # fit
 fit project timer
 
-gemini://nnix.com/fit/index.gmi
+https://nnix.com/fit/index.gmi
