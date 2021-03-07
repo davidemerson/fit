@@ -33,20 +33,6 @@ def main():
 if __name__ == '__main__':
     main()
 
-def create_fit(conn, fit):
-    """
-    Create a new project into the projects table
-    :param conn:
-    :param fit:
-    :return: fit id
-    """
-    sql = ''' 
-              VALUES(?,?,?,?,?,?,?,?) '''
-    cur = conn.cursor()
-    cur.execute(sql, fit)
-    conn.commit()
-    return cur.lastrowid
-
 def time_convert(sec):
   mins = sec // 60
   sec = sec % 60
