@@ -47,14 +47,14 @@ def timerDown(fSeconds,fFocus):
 		elapsed = now - fStart
 		for i in range(fSeconds):
 			fitProgress(i,fSeconds,fFocus)
-			time.sleep(0.05)  
+			time.sleep(1)  
 		#print("{0} since start.".format(elapsed))
 
-def fitProgress(i,max,fFocus):
-    n_bar =10 #size of progress bar
-    j= i/max
+def fitProgress(i,fSeconds,fFocus):
+    n_bar =20 #size of progress bar
+    j= i/fSeconds
     sys.stdout.write('\r')
-    sys.stdout.write(f"[{'=' * int(n_bar * j):{n_bar}s}] {int(100 * j)}%  {fFocus}")
+    sys.stdout.write(f"|{'>' * int(n_bar * j):{n_bar}s}| {int(100 * j)}%  {fFocus} {i}")
     sys.stdout.flush()
 
 def timerUp():
