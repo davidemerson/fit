@@ -102,7 +102,7 @@ fHash_short = fHash[0:5]
 conn = sqlite3.connect("./fDB.db")
 c = conn.cursor()
 params = (str(fHash),str(fHash_short),str(fType),str(fFocus),str(fSurvey),int(fStart),int(fEnd),fDuration)
-conn.execute("INSERT INTO fits (fHash,fHash_short,fType,fFocus,fSurvey,fStart,fEnd,fDuration) VALUES (?,?,?,?,?,?,?)",params)
+conn.execute("INSERT INTO fits (fHash,fHash_short,fType,fFocus,fSurvey,fStart,fEnd,fDuration) VALUES (?,?,?,?,?,?,?,?)",params)
 conn.commit()
 
 time_convert(fDuration)
