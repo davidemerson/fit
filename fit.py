@@ -19,6 +19,7 @@ def main():
     sql_create_fits_table = """
         CREATE TABLE IF NOT EXISTS fits (
             fHash text PRIMARY KEY,
+            fHash_short text NOT NULL,
             fType text NOT NULL,
             fFocus text NOT NULL,
             fSurvey text NOT NULL,
@@ -100,8 +101,8 @@ fHash_short = fHash[0:5]
 
 conn = sqlite3.connect("./fDB.db")
 c = conn.cursor()
-params = (str(fHash),str(fType),str(fFocus),str(fSurvey),int(fStart),int(fEnd),fDuration)
-conn.execute("INSERT INTO fits (fHash,fType,fFocus,fSurvey,fStart,fEnd,fDuration) VALUES (?,?,?,?,?,?,?)",params)
+params = (str(fHash),str(fHash_short),str(fType),str(fFocus),str(fSurvey),int(fStart),int(fEnd),fDuration)
+conn.execute("INSERT INTO fits (fHash,fHash_short,fType,fFocus,fSurvey,fStart,fEnd,fDuration) VALUES (?,?,?,?,?,?,?)",params)
 conn.commit()
 
 time_convert(fDuration)
