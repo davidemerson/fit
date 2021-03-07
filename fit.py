@@ -41,7 +41,7 @@ def create_fit(conn, fit):
     :return: fit id
     """
     sql = ''' 
-              VALUES(?,?,?,?,?,?,?) '''
+              VALUES(?,?,?,?,?,?,?,?) '''
     cur = conn.cursor()
     cur.execute(sql, fit)
     conn.commit()
