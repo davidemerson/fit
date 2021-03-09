@@ -34,51 +34,83 @@ if __name__ == '__main__':
     main()
 
 def time_convert(sec):
-  mins = sec // 60
-  sec = sec % 60
-  hours = mins // 60
-  mins = mins % 60
-  print("duration //{0}/{1}/{2}".format(int(hours),int(mins),sec))
+	mins = sec // 60
+	sec = sec % 60
+	hours = mins // 60
+	mins = mins % 60
+	print("\nduration //{0}/{1}/{2}".format(int(hours),int(mins),sec))
 
 def timerDown(fSeconds,fFocus):
-	elapsed = 0
-	while elapsed < fSeconds:
-		now = time.time()
-		elapsed = now - fStart
-		for i in range(fSeconds):
-			fitProgress(i,fSeconds,fFocus)
-			time.sleep(1)  
-		#print("{0} since start.".format(elapsed))
+	for i in range(fSeconds):
+		fitProgress(i,fSeconds,fFocus)
+		time.sleep(1)
 
 def fitProgress(i,fSeconds,fFocus):
-    n_bar =20 #size of progress bar
-    j= i/fSeconds
-    sys.stdout.write('\r')
-    sys.stdout.write(f"|{'>' * int(n_bar * j):{n_bar}s}| {int(100 * j)}%  {fFocus} {i}")
-    sys.stdout.flush()
+	n_bar = 30 #size of progress bar
+	j = i/fSeconds
+	sys.stdout.write('\r')
+	sys.stdout.write(f"|{'>' * int(n_bar * j):{n_bar}s}| {int(100 * j)}% {fFocus}")
+	sys.stdout.flush()
 
 def timerUp():
 	n = None
 	while n != "1":
-		n = input("Press 1 to stop >> ")
+		n = input("\nPress 1 to stop >> ")
 
-fType = input("ft30, ft60, or ftcu? >> ")
-fFocus = input("(p)ersonal, (w)ork, (l)earning? >> ")
+while True:
+	try:
+		fType = int(input("\n1. 30-minute fit \n2. 60-minute fit \n3. count-up fit \n\n >> "))
+	except ValueError:
+		print("\nThat's not an option.\n")
+		continue
+	if fType not in [1,2,3]:
+		print("\nPlease select 1, 2, or 3.")
+	else:
+		break
+
+while True:
+	try:
+		fFocus = int(input("\n1. personal fit \n2. work fit \n3. learning fit \n\n >> "))
+	except ValueError:
+		print("\nThat's not an option.\n")
+		continue
+	if fFocus not in [1,2,3]:
+		print("\nPlease select 1, 2, or 3.")
+	else:
+		break
+
+if fFocus == 1:
+	fFocus = "personal"
+elif fFocus == 2:
+	fFocus = "work"
+elif fFocus == 3:
+	fFocus = "learning"
+else:
+	fFocus = "other"
 
 fStart = time.time()
 
-if fType == "ft30":
+if fType == 1:
 	timerDown(1800,fFocus)
-elif fType == "ft60":
+elif fType == 2:
 	timerDown(3600,fFocus)
-elif fType == "ftcu":
+elif fType == 3:
 	timerUp()
 else:
 	print("Sorry, that's not an option yet.")
 
 fEnd = time.time()
 
-fSurvey = input("success? (+ / = / -) >> ")
+while True:
+	try:
+		fSurvey = str(input("\nsuccess? (+ / = / -) \n\n>> "))
+	except ValueError:
+		print("\nThat's not an option.\n")
+		continue
+	if fSurvey not in ["+","=","-"]:
+		print("\nPlease answer '+', '=', or '-'")
+	else:
+		break
 
 fDuration = fEnd - fStart
 
@@ -92,4 +124,4 @@ conn.execute("INSERT INTO fits (fHash,fHash_short,fType,fFocus,fSurvey,fStart,fE
 conn.commit()
 
 time_convert(fDuration)
-print("end of fit the {0}".format(fHash_short))
+print("\nend of fit the {0}\n".format(fHash_short))
