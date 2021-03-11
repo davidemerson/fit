@@ -38,14 +38,15 @@ passwd
 ```
 - then update the distro
 ```
-apt update && apt upgrade -y
+sudo apt update && sudo apt upgrade -y
 ```
 - then configure the thing
 ```
 sudo raspi-config
 ```
-- enable the SPI interface (this display uses SPI by default, unless you want to desolder some resistors)
+- enable the SPI interface (this display uses SPI)
 - while you're in there, also reduce the GPU memory to 16MB, since you don't need any for this stuff.
+- set your hostname to something sane
 - also expand the filesystem to make sure you're using the SD card.
 - finally, update the firmware on your device in raspi-config.
 - reboot
@@ -58,28 +59,17 @@ sudo usermod -a -G i2c,spi,gpio pi
 ```
 - get some python and stuff up in this thing
 ```
-sudo apt install -y python3-dev python-smbus i2c-tools python3-pil python3-pip python3-setuptools python3-rpi.gpio git python-pip libfreetype6-dev libjpeg-dev libsdl-dev libportmidi-dev libsdl-ttf2.0-dev libsdl-mixer1.2-dev libsdl-image1.2-dev
-
-- upgrade pip
+sudo apt install -y python3-dev python-smbus i2c-tools python3-pil python3-pip python3-setuptools python3-rpi.gpio git python3-pip libfreetype6-dev libjpeg-dev libsdl-dev libportmidi-dev libsdl-ttf2.0-dev libsdl-mixer1.2-dev libsdl-image1.2-dev libatlas-base-dev
 ```
-sudo -H pip3 install --upgrade pip
+- get the waveshare eink repo
 ```
-- install luma.oled
+git clone https://github.com/waveshare/e-Paper.git
 ```
-sudo -H pip3 install --upgrade luma.oled
+- get some python packages
 ```
-- Get the driver info at https://www.waveshare.com/wiki/2.23inch_OLED_HAT
+sudo pip3 install spidev numpy
 ```
-wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.60.tar.gz
-tar zxvf bcm2835-1.60.tar.gz
-cd bcm2835-1.60/
-sudo ./configure
-sudo make
-sudo make check
-sudo make install
+- run the waveshare example from the repo
 ```
-- get luma examples
-```
-git clone https://github.com/rm-hull/luma.examples.git
-cd luma.examples/examples
+sudo python3 epd_2in13_V2_test.py
 ```

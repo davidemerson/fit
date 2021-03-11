@@ -49,7 +49,7 @@ def fitProgress(i,fSeconds,fFocus):
 	n_bar = 30 #size of progress bar
 	j = i/fSeconds
 	sys.stdout.write('\r')
-	sys.stdout.write(f"|{'>' * int(n_bar * j):{n_bar}s}| {int(100 * j)}% {fFocus}")
+	sys.stdout.write(f">{'█' * int(n_bar * j):{n_bar}s}< {int(100 * j)}% {fFocus}")
 	sys.stdout.flush()
 
 def timerUp():
