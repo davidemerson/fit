@@ -70,12 +70,12 @@ while True:
 
 while True:
 	try:
-		fFocus = int(input("\n1. personal fit \n2. work fit \n3. learning fit \n\n >> "))
+		fFocus = int(input("\n1. personal fit \n2. work fit \n3. learning fit \n4. administrative fit \n\n >> "))
 	except ValueError:
 		print("\nThat's not an option.\n")
 		continue
-	if fFocus not in [1,2,3]:
-		print("\nPlease select 1, 2, or 3.")
+	if fFocus not in [1,2,3,4]:
+		print("\nPlease select 1, 2, 3 or 4.")
 	else:
 		break
 
@@ -85,6 +85,8 @@ elif fFocus == 2:
 	fFocus = "work"
 elif fFocus == 3:
 	fFocus = "learning"
+elif fFocus == 4:
+	fFocus = "administrative"
 else:
 	fFocus = "other"
 
