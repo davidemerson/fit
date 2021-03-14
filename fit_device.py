@@ -155,7 +155,7 @@ elif fType == 2:
 elif fType == 3:
 	timerUp()
 else:
-	break
+	exit()
 
 fEnd = time.time()
 
