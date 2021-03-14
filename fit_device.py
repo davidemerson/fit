@@ -65,9 +65,6 @@ def fitProgress(i,fSeconds,fFocus):
 	time_draw.rectangle((0, 0, 220, 105), fill = 255)
 	time_draw.text((0, 0), time.strftime('%H:%M:%S'), font = font36, fill = 0)
 	epd.displayPartial(epd.getbuffer(time_image))
-	epd.init(epd.FULL_UPDATE)
-	epd.Clear(0xFF)
-	epd.sleep()
 	# >{'█' * int(n_bar * j):{n_bar}s}< {int(100 * j)}% {fFocus}
 
 def timerUp():
