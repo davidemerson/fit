@@ -70,7 +70,7 @@ def fitProgress(i,fSeconds,fFocus):
 	time_draw.text((0, 0), "> fit", font = font36, fill = 0)
 	time_draw.text((20, 50), "> "+str(fFocus)+"", font = font18, fill = 0)
 	time_draw.text((20, 70), "> :"+str(fMinutes)+" remain", font = font18, fill = 0)
-	time_draw.text((140, 20), "100%", font = font42, fill = 0)
+	time_draw.text((140, 30), "100%", font = font42, fill = 0)
 #	time_draw.text((140, 20), ""+str(pct)+"%", font = font48, fill = 0)
 	epd.displayPartial(epd.getbuffer(time_image))
 	# >{'█' * int(n_bar * j):{n_bar}s}< {int(100 * j)}% {fFocus}
