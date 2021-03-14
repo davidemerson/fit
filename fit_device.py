@@ -64,6 +64,7 @@ def fitProgress(i,fSeconds,fFocus):
 	epd.init(epd.PART_UPDATE)
 	screen_draw.rectangle((0, 0, 220, 105), fill = 255)
 	screen_draw.text((0, 0), time.strftime('%H:%M:%S'), font = font36, fill = 0)
+	epd.displayPartial(epd.getbuffer(screen_image))
 	epd.init(epd.FULL_UPDATE)
 	epd.Clear(0xFF)
 	epd.sleep()
