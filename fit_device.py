@@ -86,26 +86,6 @@ def timerUp():
 	while n != "1":
 		n = input("\nPress 1 to stop >> ")
 
-def ink(): ## NOT CALLED, JUST FOR REFERENCE NOW
-	epd = epd2in13_V2.EPD()
-	font15 = ImageFont.truetype("futura_pt_heavy.ttf", 15)
-	font36 = ImageFont.truetype("futura_pt_heavy.ttf", 36)
-	time_image = Image.new('1', (epd.height, epd.width), 255)
-	time_draw = ImageDraw.Draw(time_image)
-	epd.init(epd.PART_UPDATE)
-	num = 0
-	while (True):
-		time_draw.rectangle((0, 0, 220, 105), fill = 255)
-		time_draw.text((0, 0), time.strftime('%H:%M:%S'), font = font36, fill = 0)
-		epd.displayPartial(epd.getbuffer(time_image))
-		num = num + 1
-		if(num == 5):
-			break
-	epd.init(epd.FULL_UPDATE)
-	epd.Clear(0xFF)
-	epd.sleep()
-	epd2in13_V2.epdconfig.module_exit()
-
 def ink_clear():
 	epd = epd2in13_V2.EPD()
 	epd.init(epd.FULL_UPDATE)
@@ -130,7 +110,8 @@ while True:
 		ink_print("Sorry, that's not an option yet.")
 		continue
 	if fFocus not in [1,2,3,4]:
-		print("\nPlease select 1, 2, 3 or 4.")
+		ink_clear()
+		ink_print("Please select 1, 2, 3 or 4.")
 	else:
 		break
 
