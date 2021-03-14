@@ -56,9 +56,18 @@ def timerDown(fSeconds,fFocus):
 def fitProgress(i,fSeconds,fFocus):
 	n_bar = 30 #size of progress bar
 	j = i/fSeconds
-	sys.stdout.write('\r')
-	sys.stdout.write(f">{'█' * int(n_bar * j):{n_bar}s}< {int(100 * j)}% {fFocus}")
-	sys.stdout.flush()
+	epd = epd2in13_V2.EPD()
+	font15 = ImageFont.truetype("futura_pt_heavy.ttf", 15)
+	font36 = ImageFont.truetype("futura_pt_heavy.ttf", 36)
+	screen_image = Image.new('1', (epd.height, epd.width), 255)
+	screen_draw = ImageDraw.Draw(screen_image)
+	epd.init(epd.PART_UPDATE)
+	screen_draw.rectangle((0, 0, 220, 105), fill = 255)
+	screen_draw.text((0, 0), ">{'█' * int(n_bar * j):{n_bar}s}< {int(100 * j)}% {fFocus}", font = font36, fill = 0)
+	epd.init(epd.FULL_UPDATE)
+	epd.Clear(0xFF)
+	epd.sleep()
+	epd2in13_V2.epdconfig.module_exit()
 
 def timerUp():
 	n = None
