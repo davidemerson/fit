@@ -125,7 +125,8 @@ while True:
 	try:
 		fFocus = int(input("\n1. personal fit \n2. work fit \n3. learning fit \n4. administrative fit \n\n >> "))
 	except ValueError:
-		print("\nThat's not an option.\n")
+		ink_clear()
+		ink_print("Sorry, that's not an option yet.")
 		continue
 	if fFocus not in [1,2,3,4]:
 		print("\nPlease select 1, 2, 3 or 4.")
@@ -154,8 +155,7 @@ elif fType == 2:
 elif fType == 3:
 	timerUp()
 else:
-	ink_clear()
-	ink_print("Sorry, that's not an option yet.")
+	break
 
 fEnd = time.time()
 
