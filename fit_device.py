@@ -60,14 +60,15 @@ def fitProgress(i,fSeconds,fFocus):
 	pct = int(100*j)
 	epd = epd2in13_V2.EPD()
 	font36 = ImageFont.truetype("futura_pt_heavy.ttf", 36)
+	font18 = ImageFont.truetype("futura_pt_heavy.ttf", 18)
 	time_image = Image.new('1', (epd.height, epd.width), 255)
 	time_draw = ImageDraw.Draw(time_image)
 	epd.init(epd.PART_UPDATE)
 	num = 0
 	time_draw.rectangle((0, 0, 220, 105), fill = 255)
 	time_draw.text((0, 0), "> fit "+str(pct)+"%", font = font36, fill = 0)
-	time_draw.text((0, 30), "> "+str(fFocus)+"", font = font36, fill = 0)
-	time_draw.text((0, 60), "> "+str(fMinutes)+" remain", font = font36, fill = 0)
+	time_draw.text((0, 30), "> "+str(fFocus)+"", font = font18, fill = 0)
+	time_draw.text((0, 60), "> :"+str(fMinutes)+" remain", font = font18, fill = 0)
 	epd.displayPartial(epd.getbuffer(time_image))
 	# >{'█' * int(n_bar * j):{n_bar}s}< {int(100 * j)}% {fFocus}
 
