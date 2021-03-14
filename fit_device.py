@@ -129,10 +129,12 @@ else:
 fStart = time.time()
 
 if fType == 1:
+	epd = epd2in13_V2.EPD()
 	epd.init(epd.FULL_UPDATE)
 	epd.Clear(0xFF)
 	timerDown(1800,fFocus)
 elif fType == 2:
+	epd = epd2in13_V2.EPD()
 	epd.init(epd.FULL_UPDATE)
 	epd.Clear(0xFF)
 	timerDown(3600,fFocus)
