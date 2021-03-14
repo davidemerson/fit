@@ -77,7 +77,7 @@ def ink_print(string):
 	time_draw = ImageDraw.Draw(time_image)
 	epd.init(epd.PART_UPDATE)
 	time_draw.rectangle((0, 0, 220, 105), fill = 255)
-	time_draw.text((0, 0), "+str(string)+", font = font18, fill = 0)
+	time_draw.text((0, 0), str(string), font = font18, fill = 0)
 	epd.displayPartial(epd.getbuffer(time_image))
 
 def timerUp():
