@@ -65,6 +65,7 @@ def fitProgress(i,fSeconds,fFocus):
 	num = 0
 	time_draw.rectangle((0, 0, 220, 105), fill = 255)
 	time_draw.text((0, 0), "> fit "+str(pct)+" %", font = font36, fill = 0)
+	time_draw.text((0, 50), "> "+str(fFocus)+"", font = font36, fill = 0)
 	epd.displayPartial(epd.getbuffer(time_image))
 	# >{'█' * int(n_bar * j):{n_bar}s}< {int(100 * j)}% {fFocus}
 
@@ -73,7 +74,7 @@ def timerUp():
 	while n != "1":
 		n = input("\nPress 1 to stop >> ")
 
-def ink():
+def ink(): ## NOT CALLED, JUST FOR REFERENCE NOW
 	epd = epd2in13_V2.EPD()
 	font15 = ImageFont.truetype("futura_pt_heavy.ttf", 15)
 	font36 = ImageFont.truetype("futura_pt_heavy.ttf", 36)
