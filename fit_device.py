@@ -55,6 +55,7 @@ def timerDown(fSeconds,fFocus):
 
 def fitProgress(i,fSeconds,fFocus):
 	fMinutes = int((fSeconds-i)/60)
+	j = i/fSeconds
 	pct = int(100*j)
 	epd = epd2in13_V2.EPD()
 	font42 = ImageFont.truetype("futura_pt_heavy.ttf", 42)
