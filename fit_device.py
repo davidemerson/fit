@@ -63,7 +63,7 @@ def fitProgress(i,fSeconds,fFocus):
 	epd.init(epd.PART_UPDATE)
 	num = 0
 	time_draw.rectangle((0, 0, 220, 105), fill = 255)
-	time_draw.text((0, 0), '{fSeconds}', font = font36, fill = 0)
+	time_draw.text((0, 0), "fit "+str(fSeconds)+" c", font = font36, fill = 0)
 	epd.displayPartial(epd.getbuffer(time_image))
 	# >{'█' * int(n_bar * j):{n_bar}s}< {int(100 * j)}% {fFocus}
 
