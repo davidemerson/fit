@@ -56,7 +56,7 @@ def timerDown(fSeconds,fFocus):
 def fitProgress(i,fSeconds,fFocus):
 	n_bar = 30
 	j = i/fSeconds
-	pct = 100*j
+	pct = int(100*j)
 	epd = epd2in13_V2.EPD()
 	epd.init(epd.FULL_UPDATE)
 	epd.Clear(0xFF)
