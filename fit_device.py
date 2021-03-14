@@ -93,6 +93,11 @@ def ink():
 	epd.sleep()
 	epd2in13_V2.epdconfig.module_exit()
 
+def ink_clear():
+	epd = epd2in13_V2.EPD()
+	epd.init(epd.FULL_UPDATE)
+	epd.Clear(0xFF)
+
 while True:
 	try:
 		fType = int(input("\n1. 30-minute fit \n2. 60-minute fit \n3. count-up fit \n\n >> "))
@@ -129,14 +134,10 @@ else:
 fStart = time.time()
 
 if fType == 1:
-	epd = epd2in13_V2.EPD()
-	epd.init(epd.FULL_UPDATE)
-	epd.Clear(0xFF)
+	ink_clear()
 	timerDown(1800,fFocus)
 elif fType == 2:
-	epd = epd2in13_V2.EPD()
-	epd.init(epd.FULL_UPDATE)
-	epd.Clear(0xFF)
+	ink_clear()
 	timerDown(3600,fFocus)
 elif fType == 3:
 	timerUp()
