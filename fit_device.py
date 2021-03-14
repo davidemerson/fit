@@ -5,10 +5,10 @@ import hashlib
 import sqlite3
 from sqlite3 import Error
 picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'pic')
-libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
+libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'eink')
 if os.path.exists(libdir):
     sys.path.append(libdir)
-from waveshare_epd import epd2in13_V2
+from eink import epd2in13_V2
 import time
 from PIL import Image,ImageDraw,ImageFont
 import traceback
