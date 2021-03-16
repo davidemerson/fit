@@ -144,6 +144,8 @@ def ink_sleep():
 	epd.sleep()
 	epd2in13_V2.epdconfig.module_exit()
 
+ink_clear()
+
 while True:
 	try:
 		fType = int(input("\n1. 30-minute fit \n2. 60-minute fit \n3. count-up fit \n\n >> "))
