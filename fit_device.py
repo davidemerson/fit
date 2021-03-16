@@ -49,7 +49,7 @@ def final_print(sec,fHash_short):
 	sec = sec % 60
 	hours = mins // 60
 	mins = mins % 60
-	duration = str(hours + "/" + mins + "/" + sec)
+	str(duration) = str(hours) + "/" + str(mins) + "/" + str(sec)
 	font42 = ImageFont.truetype("futura_pt_heavy.ttf", 42)
 	font36 = ImageFont.truetype("futura_pt_heavy.ttf", 36)
 	font18 = ImageFont.truetype("futura_pt_heavy.ttf", 18)
