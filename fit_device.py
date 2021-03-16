@@ -79,7 +79,6 @@ def timerDown(fSeconds,fFocus):
 			break
 
 def timerUp(fFocus):
-	n = None
 	now = time.time()
 	while True:
 		try:
@@ -101,8 +100,6 @@ def timerUp(fFocus):
 		except KeyboardInterrupt:
 			print("Ended.")
 			break
-	while n != "1":
-		n = input("\nPress 1 to stop >> ")
 
 def fitProgress(now,end,fFocus,fSeconds):
 	remain = end - now
