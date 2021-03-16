@@ -77,8 +77,10 @@ def timerDown(fSeconds,fFocus):
 def fitProgress(now,end,fFocus,fSeconds):
 	remain = end - now
 	fMinutes = int((remain)/60)
-	j = fSeconds / remain
+	j = remain / fSeconds
 	print(j, "J")
+	print(remain,"remain")
+	print(fSeconds,"fSeconds")
 	print(fMinutes, "fMinutes")
 	pct = int(100*j)
 	epd = epd2in13_V2.EPD()
