@@ -52,6 +52,9 @@ def timerDown(fSeconds,fFocus):
 	now = time.time()
 	end = now + fSeconds
 	while now < end:
+		print(now,"now")
+		print(end,"end")
+		print(fSeconds,"fSeconds")
 		fitProgress(now,end,fFocus)
 		time.sleep(1)
 
