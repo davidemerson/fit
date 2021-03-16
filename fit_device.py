@@ -49,13 +49,15 @@ def time_convert(sec):
 	print("\nduration //{0}/{1}/{2}".format(int(hours),int(mins),sec))
 
 def timerDown(fSeconds,fFocus):
-	for i in range(fSeconds):
-		fitProgress(i,fSeconds,fFocus)
+	now = time.time()
+	end = now + fSeconds
+	while now < end:
+		fitProgress(now,end,fFocus)
 		time.sleep(1)
 
-def fitProgress(i,fSeconds,fFocus):
-	fMinutes = int((fSeconds-i)/60)
-	j = i/fSeconds
+def fitProgress(now,end,fFocus):
+	fMinutes = int((end-now)/60)
+	j = now/end
 	pct = int(100*j)
 	epd = epd2in13_V2.EPD()
 	font42 = ImageFont.truetype("futura_pt_heavy.ttf", 42)
@@ -95,10 +97,12 @@ while True:
 	try:
 		fType = int(input("\n1. 30-minute fit \n2. 60-minute fit \n3. count-up fit \n\n >> "))
 	except ValueError:
-		print("\nThat's not an option.\n")
+		ink_clear()
+		ink_print("Sorry, that's not an option.")
 		continue
 	if fType not in [1,2,3]:
-		print("\nPlease select 1, 2, or 3.")
+		ink_clear()
+		ink_print("Please select 1, 2, 3 or 4.")
 	else:
 		break
 
@@ -107,7 +111,7 @@ while True:
 		fFocus = int(input("\n1. personal fit \n2. work fit \n3. learning fit \n4. administrative fit \n\n >> "))
 	except ValueError:
 		ink_clear()
-		ink_print("Sorry, that's not an option yet.")
+		ink_print("Sorry, that's not an option.")
 		continue
 	if fFocus not in [1,2,3,4]:
 		ink_clear()
@@ -130,10 +134,10 @@ fStart = time.time()
 
 if fType == 1:
 	ink_clear()
-	timerDown(1800,fFocus)
+	timerDown(15,fFocus)
 elif fType == 2:
 	ink_clear()
-	timerDown(3600,fFocus)
+	timerDown(30,fFocus)
 elif fType == 3:
 	timerUp()
 else:
@@ -145,10 +149,12 @@ while True:
 	try:
 		fSurvey = str(input("\nsuccess? (+ / = / -) \n\n>> "))
 	except ValueError:
-		print("\nThat's not an option.\n")
+		ink_clear()
+		ink_print("Sorry, that's not an option.")
 		continue
 	if fSurvey not in ["+","=","-"]:
-		print("\nPlease answer '+', '=', or '-'")
+		ink_clear()
+		ink_print("Please answer '+', '=', or '-'")
 	else:
 		break
 
@@ -164,4 +170,4 @@ conn.execute("INSERT INTO fits (fHash,fHash_short,fType,fFocus,fSurvey,fStart,fE
 conn.commit()
 
 time_convert(fDuration)
-print("\nend of fit the {0}\n".format(fHash_short))
+ink_print("end of fit the {0}\n".format(fHash_short))
