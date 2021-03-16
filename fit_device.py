@@ -139,6 +139,8 @@ def ink_clear():
 	epd.init(epd.FULL_UPDATE)
 	epd.Clear(0xFF)
 
+epd = epd2in13_V2.EPD()
+
 while True:
 	try:
 		fType = int(input("\n1. 30-minute fit \n2. 60-minute fit \n3. count-up fit \n\n >> "))
