@@ -78,6 +78,32 @@ def timerDown(fSeconds,fFocus):
 			print("Ended.")
 			break
 
+def timerUp(fFocus):
+	n = None
+	now = time.time()
+	while True:
+		try:
+			minutes = (time.time() - now) / 60
+			epd = epd2in13_V2.EPD()
+			font42 = ImageFont.truetype("futura_pt_heavy.ttf", 42)
+			font36 = ImageFont.truetype("futura_pt_heavy.ttf", 36)
+			font18 = ImageFont.truetype("futura_pt_heavy.ttf", 18)
+			time_image = Image.new('1', (epd.height, epd.width), 255)
+			time_draw = ImageDraw.Draw(time_image)
+			epd.init(epd.PART_UPDATE)
+			time_draw.rectangle((0, 0, 220, 105), fill = 255)
+			time_draw.text((0, 0), "> fit", font = font36, fill = 0)
+			time_draw.text((20, 50), "> "+str(fFocus), font = font18, fill = 0)
+			time_draw.text((20, 70), "> indefinite", font = font18, fill = 0)
+			time_draw.text((140, 30), ":"+str(minutes), font = font42, fill = 0)
+			epd.displayPartial(epd.getbuffer(time_image))
+			time.sleep(1)
+		except KeyboardInterrupt:
+			print("Ended.")
+			break
+	while n != "1":
+		n = input("\nPress 1 to stop >> ")
+
 def fitProgress(now,end,fFocus,fSeconds):
 	remain = end - now
 	fMinutes = int((remain)/60)
@@ -110,11 +136,6 @@ def ink_print(string):
 	time_draw.rectangle((0, 0, 220, 105), fill = 255)
 	time_draw.text((0, 0), str(string), font = font18, fill = 0)
 	epd.displayPartial(epd.getbuffer(time_image))
-
-def timerUp():
-	n = None
-	while n != "1":
-		n = input("\nPress 1 to stop >> ")
 
 def ink_clear():
 	epd = epd2in13_V2.EPD()
@@ -167,7 +188,7 @@ elif fType == 2:
 	ink_clear()
 	timerDown(3600,fFocus)
 elif fType == 3:
-	timerUp()
+	timerUp(fFocus)
 else:
 	exit()
 
