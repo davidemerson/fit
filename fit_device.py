@@ -57,10 +57,8 @@ def final_print(sec,fHash_short):
 	time_draw = ImageDraw.Draw(time_image)
 	epd.init(epd.PART_UPDATE)
 	time_draw.rectangle((0, 0, 220, 105), fill = 255)
-	time_draw.text((0, 0), "> fit", font = font36, fill = 0)
-	time_draw.text((20, 50), "> end of "+str(fHash_short)+"", font = font18, fill = 0)
+	time_draw.text((0, 0), "> fit the"+str(fHash_short)+, font = font36, fill = 0)
 	time_draw.text((20, 70), "> lasted //"+str(duration)+" ", font = font18, fill = 0)
-	time_draw.text((140, 30), ""+str(fHash_short)+"", font = font42, fill = 0)
 	epd.displayPartial(epd.getbuffer(time_image))
 
 def timerDown(fSeconds,fFocus):
