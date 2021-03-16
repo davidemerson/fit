@@ -94,7 +94,7 @@ def timerUp(fFocus):
 			time_draw.text((0, 0), "> fit", font = font36, fill = 0)
 			time_draw.text((20, 50), "> "+str(fFocus), font = font18, fill = 0)
 			time_draw.text((20, 70), "> indefinite", font = font18, fill = 0)
-			time_draw.text((150, 30), ":"+str(minutes), font = font42, fill = 0)
+			time_draw.text((170, 30), ":"+str(minutes), font = font42, fill = 0)
 			epd.displayPartial(epd.getbuffer(time_image))
 			time.sleep(1)
 		except KeyboardInterrupt:
