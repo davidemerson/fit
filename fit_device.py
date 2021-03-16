@@ -71,7 +71,7 @@ def timerDown(fSeconds,fFocus):
 		print(now,"now")
 		print(end,"end")
 		print(fSeconds,"fSeconds")
-		fitProgress(now,end,fFocus)
+		fitProgress(now,end,fFocus,fSeconds)
 		time.sleep(1)
 
 def fitProgress(now,end,fFocus,fSeconds):
