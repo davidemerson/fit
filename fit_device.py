@@ -69,13 +69,10 @@ def timerDown(fSeconds,fFocus):
 	while now < end:
 		try:
 			now = time.time()
-			print(now,"now")
-			print(end,"end")
-			print(fSeconds,"fSeconds")
 			fitProgress(now,end,fFocus,fSeconds)
 			time.sleep(1)
 		except KeyboardInterrupt:
-			print("Ended.")
+			print("\n\nEnded.")
 			break
 
 def timerUp(fFocus):
@@ -98,17 +95,13 @@ def timerUp(fFocus):
 			epd.displayPartial(epd.getbuffer(time_image))
 			time.sleep(1)
 		except KeyboardInterrupt:
-			print("Ended.")
+			print("\n\nEnded.")
 			break
 
 def fitProgress(now,end,fFocus,fSeconds):
 	remain = end - now
 	fMinutes = int((remain)/60)
 	j = 1 - (remain / fSeconds)
-	print(j, "J")
-	print(remain,"remain")
-	print(fSeconds,"fSeconds")
-	print(fMinutes, "fMinutes")
 	pct = int(100*j)
 	epd = epd2in13_V2.EPD()
 	font42 = ImageFont.truetype("futura_pt_heavy.ttf", 42)
