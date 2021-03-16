@@ -83,7 +83,7 @@ def timerUp(fFocus):
 	now = time.time()
 	while True:
 		try:
-			minutes = (time.time() - now) / 60
+			minutes = int((time.time() - now) / 60)
 			epd = epd2in13_V2.EPD()
 			font42 = ImageFont.truetype("futura_pt_heavy.ttf", 42)
 			font36 = ImageFont.truetype("futura_pt_heavy.ttf", 36)
