@@ -139,7 +139,10 @@ def ink_clear():
 	epd.init(epd.FULL_UPDATE)
 	epd.Clear(0xFF)
 
-epd = epd2in13_V2.EPD()
+def ink_sleep():
+	epd = epd2in13_V2.EPD()
+	epd.sleep()
+	epd2in13_V2.epdconfig.module_exit()
 
 while True:
 	try:
@@ -219,5 +222,4 @@ conn.execute("INSERT INTO fits (fHash,fHash_short,fType,fFocus,fSurvey,fStart,fE
 conn.commit()
 
 final_print(fDuration,fHash_short,fSurvey)
-epd.sleep()
-epd2in13_V2.epdconfig.module_exit()
+ink_sleep()
