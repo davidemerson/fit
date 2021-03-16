@@ -149,7 +149,7 @@ while True:
 
 while True:
 	try:
-		fFocus = int(input("\n1. personal fit \n2. work fit \n3. learning fit \n4. administrative fit \n\n >> "))
+		fFocus = int(input("\n1. personal fit \n2. work fit \n3. learn fit \n4. admin fit \n\n >> "))
 	except ValueError:
 		ink_clear()
 		ink_print("Sorry, that's not an option.")
@@ -165,9 +165,9 @@ if fFocus == 1:
 elif fFocus == 2:
 	fFocus = "work"
 elif fFocus == 3:
-	fFocus = "learning"
+	fFocus = "learn"
 elif fFocus == 4:
-	fFocus = "administrative"
+	fFocus = "admin"
 else:
 	fFocus = "other"
 
