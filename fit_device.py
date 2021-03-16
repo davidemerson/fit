@@ -77,7 +77,7 @@ def timerDown(fSeconds,fFocus):
 def fitProgress(now,end,fFocus,fSeconds):
 	remain = end - now
 	fMinutes = int((remain)/60)
-	j = remain / fSeconds
+	j = 1 - (remain / fSeconds)
 	print(j, "J")
 	print(remain,"remain")
 	print(fSeconds,"fSeconds")
