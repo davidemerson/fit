@@ -41,7 +41,7 @@ def main():
 if __name__ == '__main__':
     main()
 
-def final_print(sec,fHash_short):
+def final_print(sec,fHash_short,fSurvey):
 	epd = epd2in13_V2.EPD()
 	epd.init(epd.FULL_UPDATE)
 	epd.Clear(0xFF)
@@ -49,7 +49,8 @@ def final_print(sec,fHash_short):
 	sec = sec % 60
 	hours = mins // 60
 	mins = mins % 60
-	duration = (str(hours) + "/" + str(mins) + "/" + str(sec))
+	short_sec = int(sec)
+	duration = (str(hours) + "/" + str(mins) + "/" + str(disp_sec))
 	font42 = ImageFont.truetype("futura_pt_heavy.ttf", 42)
 	font36 = ImageFont.truetype("futura_pt_heavy.ttf", 36)
 	font18 = ImageFont.truetype("futura_pt_heavy.ttf", 18)
@@ -57,8 +58,9 @@ def final_print(sec,fHash_short):
 	time_draw = ImageDraw.Draw(time_image)
 	epd.init(epd.PART_UPDATE)
 	time_draw.rectangle((0, 0, 220, 105), fill = 255)
-	time_draw.text((0, 0), "> fit the"+str(fHash_short), font = font36, fill = 0)
-	time_draw.text((20, 70), "> lasted //"+str(duration)+" ", font = font18, fill = 0)
+	time_draw.text((0, 0), "> fit the "+str(fHash_short), font = font36, fill = 0)
+	time_draw.text((20, 50), "> went "+str(fSurvey), font = font18, fill = 0)
+	time_draw.text((20, 70), "> lasted //"+str(duration), font = font18, fill = 0)
 	epd.displayPartial(epd.getbuffer(time_image))
 
 def timerDown(fSeconds,fFocus):
@@ -88,9 +90,9 @@ def fitProgress(now,end,fFocus):
 	epd.init(epd.PART_UPDATE)
 	time_draw.rectangle((0, 0, 220, 105), fill = 255)
 	time_draw.text((0, 0), "> fit", font = font36, fill = 0)
-	time_draw.text((20, 50), "> "+str(fFocus)+"", font = font18, fill = 0)
+	time_draw.text((20, 50), "> "+str(fFocus), font = font18, fill = 0)
 	time_draw.text((20, 70), "> :"+str(fMinutes)+" remain", font = font18, fill = 0)
-	time_draw.text((140, 30), ""+str(pct)+"%", font = font42, fill = 0)
+	time_draw.text((140, 30), str(pct)+"%", font = font42, fill = 0)
 	epd.displayPartial(epd.getbuffer(time_image))
 
 def ink_print(string):
@@ -189,4 +191,4 @@ params = (str(fHash),str(fHash_short),str(fType),str(fFocus),str(fSurvey),int(fS
 conn.execute("INSERT INTO fits (fHash,fHash_short,fType,fFocus,fSurvey,fStart,fEnd,fDuration) VALUES (?,?,?,?,?,?,?,?)",params)
 conn.commit()
 
-final_print(fDuration,fHash_short)
+final_print(fDuration,fHash_short,fSurvey)
