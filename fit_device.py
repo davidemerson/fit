@@ -158,10 +158,10 @@ fStart = time.time()
 
 if fType == 1:
 	ink_clear()
-	timerDown(15,fFocus)
+	timerDown(1800,fFocus)
 elif fType == 2:
 	ink_clear()
-	timerDown(30,fFocus)
+	timerDown(3600,fFocus)
 elif fType == 3:
 	timerUp()
 else:
