@@ -73,8 +73,8 @@ def timerDown(fSeconds,fFocus):
 		print(fSeconds,"fSeconds")
 		fitProgress(now,end,fFocus,fSeconds)
 		time.sleep(1)
-	except KeyboardInterrupt:
-		print("Ended.")
+		except KeyboardInterrupt:
+			print("Ended.")
 
 def fitProgress(now,end,fFocus,fSeconds):
 	remain = end - now
