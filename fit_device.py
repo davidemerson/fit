@@ -50,7 +50,7 @@ def final_print(sec,fHash_short,fSurvey):
 	hours = mins // 60
 	mins = mins % 60
 	short_sec = int(sec)
-	duration = (str(hours) + "/" + str(mins) + "/" + str(disp_sec))
+	duration = (str(hours) + "/" + str(mins) + "/" + str(short_sec))
 	font42 = ImageFont.truetype("futura_pt_heavy.ttf", 42)
 	font36 = ImageFont.truetype("futura_pt_heavy.ttf", 36)
 	font18 = ImageFont.truetype("futura_pt_heavy.ttf", 18)
@@ -74,10 +74,10 @@ def timerDown(fSeconds,fFocus):
 		fitProgress(now,end,fFocus)
 		time.sleep(1)
 
-def fitProgress(now,end,fFocus):
+def fitProgress(now,end,fFocus,fSeconds):
 	remain = end - now
 	fMinutes = int((remain)/60)
-	j = now / end
+	j = remain / fSeconds
 	print(j, "J")
 	print(fMinutes, "fMinutes")
 	pct = int(100*j)
