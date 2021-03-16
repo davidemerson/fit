@@ -185,6 +185,7 @@ elif fType == 2:
 	ink_clear()
 	timerDown(3600,fFocus)
 elif fType == 3:
+	ink_clear()
 	timerUp(fFocus)
 else:
 	exit()
@@ -216,3 +217,5 @@ conn.execute("INSERT INTO fits (fHash,fHash_short,fType,fFocus,fSurvey,fStart,fE
 conn.commit()
 
 final_print(fDuration,fHash_short,fSurvey)
+epd.sleep()
+epd2in13_V2.epdconfig.module_exit()
