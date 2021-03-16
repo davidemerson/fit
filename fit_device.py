@@ -222,4 +222,4 @@ conn.execute("INSERT INTO fits (fHash,fHash_short,fType,fFocus,fSurvey,fStart,fE
 conn.commit()
 
 final_print(fDuration,fHash_short,fSurvey)
-ink_sleep()
+#ink_sleep() # I prefer it to just display the last fit, but if we need to make it sleep, uncomment this and fix.
