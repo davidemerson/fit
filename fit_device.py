@@ -67,12 +67,13 @@ def timerDown(fSeconds,fFocus):
 	now = time.time()
 	end = now + fSeconds
 	while now < end:
-		now = time.time()
-		print(now,"now")
-		print(end,"end")
-		print(fSeconds,"fSeconds")
-		fitProgress(now,end,fFocus,fSeconds)
-		time.sleep(1)
+		try:
+			now = time.time()
+			print(now,"now")
+			print(end,"end")
+			print(fSeconds,"fSeconds")
+			fitProgress(now,end,fFocus,fSeconds)
+			time.sleep(1)
 		except KeyboardInterrupt:
 			print("Ended.")
 
