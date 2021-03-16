@@ -72,12 +72,12 @@ def timerDown(fSeconds,fFocus):
 		print(end,"end")
 		print(fSeconds,"fSeconds")
 		fitProgress(now,end,fFocus,fSeconds)
-		time.sleep(1)
+		time.sleep(.5)
 
 def fitProgress(now,end,fFocus,fSeconds):
 	remain = end - now
 	fMinutes = int((remain)/60)
-	j = remain / fSeconds
+	j = fSeconds / remain
 	print(j, "J")
 	print(fMinutes, "fMinutes")
 	pct = int(100*j)
