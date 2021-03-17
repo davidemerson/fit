@@ -10,7 +10,6 @@ if os.path.exists(libdir):
 from eink import epd2in13_V2
 import time
 from PIL import Image,ImageDraw,ImageFont
-import traceback
 
 def final_print(sec,fHash_short,fSurvey):
 	epd = epd2in13_V2.EPD()
@@ -172,8 +171,6 @@ fDuration = fEnd - fStart
 
 fHash = hashlib.md5(str(fEnd).encode('utf-8')).hexdigest()
 fHash_short = fHash[0:5]
-
-#fields = ['fHash','fHash_short','fType','fFocus','fSurvey','fStart','fEnd','fDuration']
 
 fields=[fHash,fHash_short,fType,fFocus,fSurvey,fStart,fEnd,fDuration]
 with open(r'fDB.csv', 'a') as f:

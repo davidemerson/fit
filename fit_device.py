@@ -11,7 +11,6 @@ if os.path.exists(libdir):
 from eink import epd2in13_V2
 import time
 from PIL import Image,ImageDraw,ImageFont
-import traceback
 
 class DBConnection:
 
