@@ -1,0 +1,5 @@
+# this is the /boot/config.txt for the fit device
+arm_freq=1000
+dtparam=spi=on
+[all]
+gpu_mem=64
