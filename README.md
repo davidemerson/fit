@@ -40,12 +40,11 @@ passwd
 ```
 sudo apt update && sudo apt upgrade -y
 ```
+- replace /boot/config.txt with the config.txt in the repo here
 - then configure the thing
 ```
 sudo raspi-config
 ```
-- enable the SPI interface (this display uses SPI)
-- while you're in there, also reduce the GPU memory to 16MB, since you don't need any for this stuff.
 - set your hostname to something sane
 - also expand the filesystem to make sure you're using the SD card.
 - finally, update the firmware on your device in raspi-config.
@@ -59,7 +58,7 @@ sudo usermod -a -G i2c,spi,gpio pi
 ```
 - get some python and stuff up in this thing
 ```
-sudo apt install -y python3-dev python-smbus i2c-tools python3-pil python3-pip python3-setuptools python3-rpi.gpio git python3-pip libfreetype6-dev libjpeg-dev libsdl-dev libportmidi-dev libsdl-ttf2.0-dev libsdl-mixer1.2-dev libsdl-image1.2-dev libatlas-base-dev
+sudo apt install -y python3-dev python-smbus i2c-tools python3-pil python3-pip python3-setuptools python3-rpi.gpio git python3-pip libfreetype6-dev libjpeg-dev libsdl-dev libportmidi-dev libsdl-ttf2.0-dev libsdl-mixer1.2-dev libsdl-image1.2-dev libatlas-base-dev screen
 ```
 - get the waveshare eink repo
 ```
