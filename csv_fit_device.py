@@ -52,6 +52,7 @@ def timerUp(fFocus):
 			minutes = int((time.time() - now) / 60)
 			epd = epd2in13_V2.EPD()
 			font42 = ImageFont.truetype("futura_pt_heavy.ttf", 42)
+			font36 = ImageFont.truetype("futura_pt_heavy.ttf", 36)
 			font18 = ImageFont.truetype("futura_pt_heavy.ttf", 18)
 			time_image = Image.new('1', (epd.height, epd.width), 255)
 			time_draw = ImageDraw.Draw(time_image)

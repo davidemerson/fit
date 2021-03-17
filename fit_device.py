@@ -51,7 +51,6 @@ def final_print(sec,fHash_short,fSurvey):
 	mins = mins % 60
 	short_sec = int(sec)
 	duration = (str(hours) + "/" + str(mins) + "/" + str(short_sec))
-	font42 = ImageFont.truetype("futura_pt_heavy.ttf", 42)
 	font36 = ImageFont.truetype("futura_pt_heavy.ttf", 36)
 	font18 = ImageFont.truetype("futura_pt_heavy.ttf", 18)
 	time_image = Image.new('1', (epd.height, epd.width), 255)
