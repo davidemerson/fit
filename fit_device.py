@@ -70,7 +70,7 @@ def timerDown(fSeconds,fFocus):
 		try:
 			now = time.time()
 			fitProgress(now,end,fFocus,fSeconds)
-			time.sleep(1)
+			time.sleep(2)
 		except KeyboardInterrupt:
 			print("\n\nEnded.")
 			break
@@ -93,7 +93,7 @@ def timerUp(fFocus):
 			time_draw.text((20, 70), "> indefinite", font = font18, fill = 0)
 			time_draw.text((170, 30), ":"+str(minutes), font = font42, fill = 0)
 			epd.displayPartial(epd.getbuffer(time_image))
-			time.sleep(1)
+			time.sleep(2)
 		except KeyboardInterrupt:
 			print("\n\nEnded.")
 			break
@@ -131,8 +131,6 @@ def ink_clear():
 	epd = epd2in13_V2.EPD()
 	epd.init(epd.FULL_UPDATE)
 	epd.Clear(0xFF)
-
-ink_clear()
 
 while True:
 	try:
