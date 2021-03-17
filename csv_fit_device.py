@@ -2,8 +2,7 @@ import time
 import sys
 import os
 import hashlib
-import sqlite3
-from sqlite3 import Error
+import csv
 picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'pic')
 libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'eink')
 if os.path.exists(libdir):
@@ -12,34 +11,6 @@ from eink import epd2in13_V2
 import time
 from PIL import Image,ImageDraw,ImageFont
 import traceback
-
-class DBConnection:
-
-    def __init__(self, dbpath):
-        self.connection = sqlite3.connect(dbpath)
-        self.cursor = self.connection.cursor()
-
-    def create_table(self, query):
-        self.cursor.execute(query)
-
-def main():
-    dbpath = f"./fDB.db"
-    sql_create_fits_table = """
-        CREATE TABLE IF NOT EXISTS fits (
-            fHash text PRIMARY KEY,
-            fHash_short text NOT NULL,
-            fType text NOT NULL,
-            fFocus text NOT NULL,
-            fSurvey text NOT NULL,
-            fStart integer NOT NULL,
-            fEnd integer NOT NULL,
-            fDuration integer NOT NULL
-        ); """
-    connection = DBConnection(dbpath)
-    connection.create_table(sql_create_fits_table)
-
-if __name__ == '__main__':
-    main()
 
 def final_print(sec,fHash_short,fSurvey):
 	epd = epd2in13_V2.EPD()
@@ -201,10 +172,11 @@ fDuration = fEnd - fStart
 fHash = hashlib.md5(str(fEnd).encode('utf-8')).hexdigest()
 fHash_short = fHash[0:5]
 
-conn = sqlite3.connect("./fDB.db")
-c = conn.cursor()
-params = (str(fHash),str(fHash_short),str(fType),str(fFocus),str(fSurvey),int(fStart),int(fEnd),fDuration)
-conn.execute("INSERT INTO fits (fHash,fHash_short,fType,fFocus,fSurvey,fStart,fEnd,fDuration) VALUES (?,?,?,?,?,?,?,?)",params)
-conn.commit()
+#fields = ['fHash','fHash_short','fType','fFocus','fSurvey','fStart','fEnd','fDuration']
+
+fields=[fHash,fHash_short,fType,fFocus,fSurvey,fStart,fEnd,fDuration]
+with open(r'fDB.csv', 'a') as f:
+    writer = csv.writer(f)
+    writer.writerow(fields)
 
 final_print(fDuration,fHash_short,fSurvey)
