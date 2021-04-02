@@ -1,10 +1,10 @@
 import sys
 import os
-import uhashlib
+import hashlib
 import time
 
 time_now = "blergh"
-hash_test = uhashlib.sha256(time_now).digest()
+hash_test = hashlib.sha256(time_now).hexdigest()
 
 print(time_now)
 print(hash_test)
