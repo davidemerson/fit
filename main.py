@@ -2,7 +2,7 @@
 import time
 import sys
 import os
-import uhashlib
+import ubinascii, uhashlib
 import machine
 import framebuf
 from ssd1306 import SSD1306_I2C
@@ -15,7 +15,7 @@ def final_print(sec,final_hash,final_survey):
     mins = mins % 60
     short_sec = int(sec)
     duration = (str(hours) + "/" + str(mins) + "/" + str(short_sec))
-    oled_show("> fit the"+str(final_hash),str(final_survey),"//"+str(duration))
+    oled_show("fit the "+str(final_hash)[0:6],str(final_survey),"//"+str(duration))
     time.sleep(30)
     oled_blank()
 
@@ -27,22 +27,22 @@ def timer_down(f_seconds,timer_focus):
         now = time.time()
         fit_progress(now,end,timer_focus,f_seconds)
         time.sleep(0.01)
-#        if button1.value() == 0:
-#             oled_show("","Ended Manually!","")
-#             time.sleep(2)
-#             break
+        if not button2.value():
+             oled_show("","Ended Manually!","")
+             time.sleep(2)
+             break
 
 def timer_up(timer_focus):
     """ counts up for indefinite period """
     now = time.time()
     while True:
         minutes = int((time.time() - now) / 60)
-        oled_show(str(timer_focus)," for ",str(minutes))
+        oled_show(str(timer_focus),"for ",str(minutes))
         time.sleep(0.01)
-#         if button1.value() == 0:
-#             oled_show("","Ended Manually!","")
-#             time.sleep(2)
-#             break
+        if not button2.value():
+             oled_show("","Ended Manually!","")
+             time.sleep(2)
+             break
 
 def fit_progress(now,end,timer_focus,f_seconds):
     """ tracks progress of a count-down fit and prints to screen """
@@ -52,41 +52,16 @@ def fit_progress(now,end,timer_focus,f_seconds):
     pct = int(100*j)
     oled_show(str(timer_focus),str(f_minutes)+" min",str(pct)+"%")
 
-def debounce(btn):
-    """ some debounce control """
-    count = 2
-    while count > 0:
-        if btn.value():
-            count = 2
-        else:
-            count -= 1
-        time.sleep(.01)
-
 def multi_choice(options):
     """ provides multi-choice menus for two-button navigation """
     for i in options:
-        print("below for")
-        print("button 1 below for",button1.value())
-        print("button 2 below for",button2.value())
         oled_show("      fit",i,"1:sel    2:next")
+        time.sleep(0.5)
         while 1:
-            print("below while")
-            print("button 1 below while",button1.value())
-            print("button 2 below while",button2.value())
-            b1pressed = button1.value()
-            b2pressed = button2.value()
-            if b1pressed or b2pressed:
-                print("below first if")
-                print("button 1 first if",button1.value())
-                print("button 2 first if",button2.value())
+            if not button1.value():
+                return i
+            if not button2.value():
                 break
-        if b1pressed:
-            print("below second if")
-            print("button 1 second if",button1.value())
-            print("button 2 second if",button2.value())
-            debounce(button1)
-            return i
-        debounce(button2)
 
 def oled_show(message1,message2,message3):
     """ clears the oled and displays a three line message """
@@ -108,6 +83,9 @@ def splash_screen():
         b2pressed = button2.value()
         if not b1pressed or not b2pressed:
             break
+
+def F_HASH_DIGEST(sha):
+    return hex(int(ubinascii.hexlify(sha.digest()).decode(), 16))
 
 sda = machine.Pin(4)
 scl = machine.Pin(5)
@@ -148,11 +126,12 @@ F_SURVEY = multi_choice(['went well','went ok','went poorly'])
 
 fDuration = fEnd - fStart
 
-F_HASH = uhashlib.sha256(str(fEnd).encode('utf-8')).digest()
-F_HASH_SHORT = F_HASH[0:3]
+F_HASH = uhashlib.sha256(str(fEnd))
+
+F_HASH_SHORT = F_HASH_DIGEST(F_HASH)
 
 fitdb = open("data.csv","a")
-fitdb.write(str(F_HASH)+","+str(F_TYPE)+","+str(F_FOCUS)+","+str(F_SURVEY)+","+str(fStart)+","+str(fEnd)+","+str(fDuration)+"\n")
+fitdb.write(str(F_HASH_SHORT)+","+str(F_TYPE)+","+str(F_FOCUS)+","+str(F_SURVEY)+","+str(fStart)+","+str(fEnd)+","+str(fDuration)+"\n")
 fitdb.close()
 
 final_print(fDuration,F_HASH_SHORT,F_SURVEY)
