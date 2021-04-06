@@ -4,71 +4,17 @@ fit is a time logger for personal productivity
 
 https://nnix.com/fit/index.gmi
 
-## Configure a pi zero w for this
+## Configure a microcontroller for this
 
-- Get Rasbian Lite from here https://www.raspberrypi.org/software/operating-systems/
-- Flash it onto an SD card.
-- Mount the flashed SD card.
-- Create the SSH file to enable SSH
+- Get Raspberry Pi Pico (I used a Tiny2040 from Pimoroni, but there are many which work.)
+- Get two momentary normally-open switches, or one double-momentary switch and one SSD1306 OLED (I used 64x32, but you can reformat the graphics if you want to have a larger one).
+- Get the MicroPython UF2 from here (https://www.raspberrypi.org/documentation/rp2040/getting-started/#getting-started-with-micropython).
+- Flash the UF2 onto the Pi Pico using the instructions which came with it.
+- Clone the repo here. In main.py, modify the pins for the buttons to the ones you use on your device. Likewise in main.py, modify the pins for the OLED display to the ones you use on your device.
+- In main.py, modify the 
+- Copy *.py from this repo onto the Pi Pico (you can use "Thonny" to accomplish this). "main.py" is what will be run when you reboot the Pi.
+- Reboot the Pi and check things out.
 
-```
-touch /ssh
-```
-- Create the wifi configuration
-```
-touch /wpa_supplicant.conf
-```
-- Insert the following into wpa_supplicant:
-```
-country=US
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1
+Note that the program writes a CSV to the flash of the pi, data.csv. You can use Thonny or any other program capable of mounting the Pi Pico flash to read this or download it for analysis.
 
-network={
-    ssid="NETWORK-NAME"
-    psk="NETWORK-PASSWORD"
-}
-```
-- Boot the pi, figure out what IP it took on your local network.
-- ssh pi@[ip it took]
-- Default password is "raspberry" but that's some crap so...
-- Change default password on pi user:
-```
-passwd
-```
-- then update the distro
-```
-sudo apt update && sudo apt upgrade -y
-```
-- replace /boot/config.txt with the config.txt in the repo here
-- then configure the thing
-```
-sudo raspi-config
-```
-- set your hostname to something sane
-- also expand the filesystem to make sure you're using the SD card.
-- finally, update the firmware on your device in raspi-config.
-- reboot
-```
-sudo reboot
-```
-- usermod stuff for spi
-```
-sudo usermod -a -G i2c,spi,gpio pi
-```
-- get some python and stuff up in this thing
-```
-sudo apt install -y python3-dev python-smbus i2c-tools python3-pil python3-pip python3-setuptools python3-rpi.gpio git python3-pip libfreetype6-dev libjpeg-dev libsdl-dev libportmidi-dev libsdl-ttf2.0-dev libsdl-mixer1.2-dev libsdl-image1.2-dev libatlas-base-dev screen
-```
-- get the waveshare eink repo
-```
-git clone https://github.com/waveshare/e-Paper.git
-```
-- get some python packages
-```
-sudo pip3 install spidev numpy
-```
-- run the waveshare example from the repo
-```
-sudo python3 epd_2in13_V2_test.py
-```
+There are some historical files under "pi_zero_old" folder here. Feel free to use those if you want to use other hardware, such as a Waveshare eink display or a Pi Zero. I originally built this on a Pi Zero, but was frustrated with the overhead of Linux, the display drivers, and the power consumption, so I went way smaller and got a 2040/Pico. I'm much happier with the 2040 as a platform, especially for something this simple.

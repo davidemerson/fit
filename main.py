@@ -91,26 +91,30 @@ def f_hash_digest(sha):
     """ returns a readable hash """
     return hex(int(ubinascii.hexlify(sha.digest()).decode(), 16))
 
+""" pins to which you've attached the OLED display """
 sda = machine.Pin(4)
 scl = machine.Pin(5)
 i2c = machine.I2C(0,sda=sda, scl=scl, freq=400000)
+
+""" resolution of the OLED display """
 oled = SSD1306_I2C(64, 32, i2c)
 
+""" pins to which you've attached the control button(s) """
 button1 = machine.Pin(2, machine.Pin.IN, machine.Pin.PULL_UP)
 button2 = machine.Pin(27, machine.Pin.IN, machine.Pin.PULL_UP)
-#button1 = machine.Pin(2, machine.Pin.IN)
-#button2 = machine.Pin(3, machine.Pin.IN)
 
 splash_screen()
 
 print("before f_type")
 print("button 1 before f_type",button1.value())
 print("button 2 before f_type",button2.value())
+""" don't mess with these unless you read through the code """
 F_TYPE = multi_choice(['30 min','60 min','indef.'])
 
 print("before f_focus")
 print("button 1 before f_focus",button1.value())
 print("button 2 before f_focus",button2.value())
+""" feel free to modify these as you see fit """
 F_FOCUS = multi_choice(['fdcp','hobby','work','learn','admin'])
 
 fStart = time.time()
@@ -126,6 +130,7 @@ else:
 
 fEnd = time.time()
 
+""" feel free to modify these as you see fit """
 F_SURVEY = multi_choice(['went +','went =','went -'])
 
 fDuration = fEnd - fStart
