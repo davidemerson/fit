@@ -13,7 +13,7 @@ def final_print(sec,final_hash,final_survey):
     sec = sec % 60
     mins = int(mins)
     short_sec = int(sec)
-    duration = ("/"+str(mins)+"'"+str(short_sec)+'"')
+    duration = (str(mins)+"'"+str(short_sec)+'"')
     oled_show(str(final_hash)[0:6],str(final_survey),str(duration))
     time.sleep(15)
     oled_blank()
