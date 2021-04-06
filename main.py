@@ -1,22 +1,21 @@
 """ fit: a productivity logger """
 import time
 import sys
-import os
-import ubinascii, uhashlib
+import ubinascii
+import uhashlib
 import machine
-import framebuf
+from itertools import cycle
 from ssd1306 import SSD1306_I2C
 
 def final_print(sec,final_hash,final_survey):
     """ leaves the summary on the screen before shutting down """
     mins = sec // 60
     sec = sec % 60
-    hours = mins // 60
-    mins = mins % 60
+    mins = int(mins)
     short_sec = int(sec)
-    duration = (str(hours) + "/" + str(mins) + "/" + str(short_sec))
-    oled_show("fit the "+str(final_hash)[0:6],str(final_survey),"//"+str(duration))
-    time.sleep(30)
+    duration = ("/"+str(mins)+"'"+str(short_sec)+'"')
+    oled_show(str(final_hash)[0:6],str(final_survey),str(duration))
+    time.sleep(15)
     oled_blank()
 
 def timer_down(f_seconds,timer_focus):
@@ -28,9 +27,8 @@ def timer_down(f_seconds,timer_focus):
         fit_progress(now,end,timer_focus,f_seconds)
         time.sleep(0.01)
         if not button2.value():
-             oled_show("","Ended Manually!","")
-             time.sleep(2)
-             break
+            manual_end()
+            break
 
 def timer_up(timer_focus):
     """ counts up for indefinite period """
@@ -40,9 +38,13 @@ def timer_up(timer_focus):
         oled_show(str(timer_focus),"for ",str(minutes))
         time.sleep(0.01)
         if not button2.value():
-             oled_show("","Ended Manually!","")
-             time.sleep(2)
-             break
+            manual_end()
+            break
+
+def manual_end():
+    """ notes that process was manually ended """
+    oled_show("","Ended!","")
+    time.sleep(2)
 
 def fit_progress(now,end,timer_focus,f_seconds):
     """ tracks progress of a count-down fit and prints to screen """
@@ -54,8 +56,8 @@ def fit_progress(now,end,timer_focus,f_seconds):
 
 def multi_choice(options):
     """ provides multi-choice menus for two-button navigation """
-    for i in options:
-        oled_show("      fit",i,"1:sel    2:next")
+    for i in cycle(options):
+        oled_show("fit",i,"1:y 2:n")
         time.sleep(0.5)
         while 1:
             if not button1.value():
@@ -77,20 +79,22 @@ def oled_blank():
     oled.show()
 
 def splash_screen():
-    oled_show("","      fit","")
+    """ displays a startup splash screen """
+    oled_show("","  fit","")
     while 1:
         b1pressed = button1.value()
         b2pressed = button2.value()
         if not b1pressed or not b2pressed:
             break
 
-def F_HASH_DIGEST(sha):
+def f_hash_digest(sha):
+    """ returns a readable hash """
     return hex(int(ubinascii.hexlify(sha.digest()).decode(), 16))
 
 sda = machine.Pin(4)
 scl = machine.Pin(5)
 i2c = machine.I2C(0,sda=sda, scl=scl, freq=400000)
-oled = SSD1306_I2C(128, 32, i2c)
+oled = SSD1306_I2C(64, 32, i2c)
 
 button1 = machine.Pin(2, machine.Pin.IN, machine.Pin.PULL_UP)
 button2 = machine.Pin(27, machine.Pin.IN, machine.Pin.PULL_UP)
@@ -102,33 +106,33 @@ splash_screen()
 print("before f_type")
 print("button 1 before f_type",button1.value())
 print("button 2 before f_type",button2.value())
-F_TYPE = multi_choice(['30 minutes','60 minutes','indefinite'])
+F_TYPE = multi_choice(['30 min','60 min','indef.'])
 
 print("before f_focus")
 print("button 1 before f_focus",button1.value())
 print("button 2 before f_focus",button2.value())
-F_FOCUS = multi_choice(['personal','work','learning','administration'])
+F_FOCUS = multi_choice(['fdcp','hobby','work','learn','admin'])
 
 fStart = time.time()
 
-if F_TYPE == "30 minutes":
+if F_TYPE == "30 min":
     timer_down(1800,F_FOCUS)
-elif F_TYPE == "60 minutes":
+elif F_TYPE == "60 min":
     timer_down(3600,F_FOCUS)
-elif F_TYPE == "indefinite":
+elif F_TYPE == "indef.":
     timer_up(F_FOCUS)
 else:
     sys.exit()
 
 fEnd = time.time()
 
-F_SURVEY = multi_choice(['went well','went ok','went poorly'])
+F_SURVEY = multi_choice(['went +','went =','went -'])
 
 fDuration = fEnd - fStart
 
 F_HASH = uhashlib.sha256(str(fEnd))
 
-F_HASH_SHORT = F_HASH_DIGEST(F_HASH)
+F_HASH_SHORT = f_hash_digest(F_HASH)
 
 fitdb = open("data.csv","a")
 fitdb.write(str(F_HASH_SHORT)+","+str(F_TYPE)+","+str(F_FOCUS)+","+str(F_SURVEY)+","+str(fStart)+","+str(fEnd)+","+str(fDuration)+"\n")
